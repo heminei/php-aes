@@ -5,10 +5,9 @@
  */
 class AES {
 
-	private $key = null;
+	private $key = AES_KEY;
 	private $type = "AES-256-CBC";
 	private $data = null;
-	private $iv = null;
 
 	/**
 	 *
@@ -42,13 +41,6 @@ class AES {
 	 */
 	public function getType() {
 		return $this->type;
-	}
-
-	public function getIv() {
-		if (empty($this->iv)) {
-			$this->iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($this->type));
-		}
-		return $this->iv;
 	}
 
 	/**
@@ -100,16 +92,6 @@ class AES {
 
 	/**
 	 *
-	 * @param string $iv
-	 * @return $this
-	 */
-	public function setIv($iv) {
-		$this->iv = $iv;
-		return $this;
-	}
-
-	/**
-	 *
 	 * @return boolean
 	 */
 	public function validateParams() {
@@ -137,6 +119,10 @@ class AES {
 		$this->validateParams();
 		$dataArray = explode(":iv:", $this->data);
 		return openssl_decrypt(base64_decode($dataArray[0]), $this->type, $this->key, 0, base64_decode($dataArray[1]));
+	}
+
+	private function getIv() {
+		return openssl_random_pseudo_bytes(openssl_cipher_iv_length($this->type));
 	}
 
 }
