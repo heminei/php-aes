@@ -125,7 +125,6 @@ class AES {
 	public function decrypt() {
 		$this->validateParams();
 		$dataArray = explode(":iv:", $this->data);
-		var_dump($dataArray);
 		return openssl_decrypt(base64_decode($dataArray[0]), $this->type, $this->key, 0, base64_decode($dataArray[1]));
 	}
 
