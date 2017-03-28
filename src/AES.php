@@ -5,7 +5,7 @@
  */
 class AES {
 
-	private $key = AES_KEY;
+	private $key = null;
 	private $type = "AES-256-CBC";
 	private $data = null;
 
