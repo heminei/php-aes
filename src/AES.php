@@ -113,7 +113,8 @@ class AES {
 	 */
 	public function encrypt() {
 		$this->validateParams();
-		return base64_encode(openssl_encrypt($this->data, $this->type, $this->key, 0, $this->getIv())) . ":iv:" . base64_encode($this->getIv());
+		$iv = $this->getIv();
+		return base64_encode(openssl_encrypt($this->data, $this->type, $this->key, 0, $iv)) . ":iv:" . base64_encode($iv);
 	}
 
 	/**
@@ -124,6 +125,7 @@ class AES {
 	public function decrypt() {
 		$this->validateParams();
 		$dataArray = explode(":iv:", $this->data);
+		var_dump($dataArray);
 		return openssl_decrypt(base64_decode($dataArray[0]), $this->type, $this->key, 0, base64_decode($dataArray[1]));
 	}
 
