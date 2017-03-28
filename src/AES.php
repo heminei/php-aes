@@ -95,10 +95,16 @@ class AES {
 	 * @return boolean
 	 */
 	public function validateParams() {
-		if (!empty($this->data) && !empty($this->type) && !empty($this->key)) {
-			return true;
+		if (empty($this->data)) {
+			throw new \ErrorException("Data is empty");
 		}
-		return false;
+		if (empty($this->type)) {
+			throw new \ErrorException("Type is empty");
+		}
+		if (empty($this->key)) {
+			throw new \ErrorException("Key is empty");
+		}
+		return true;
 	}
 
 	/**
