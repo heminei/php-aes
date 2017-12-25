@@ -2,7 +2,7 @@
 
 ## Supports
 - custom iv
-- auto generated iv
+- auto generate iv
 - encode and decode data
 
 ## Requirements
