@@ -1,0 +1,31 @@
+{
+    "name": "hemiframe/php-aes",
+    "description": "PHP class for encrypt and decrypt data with AES algorithm",
+    "version": "1.1.0",
+    "keywords": [
+        "encrypt",
+        "decrypt",
+        "AES",
+        "PHP",
+        "openssl"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Martin",
+            "email": "heminei@heminei.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/heminei/php-aes/issues"
+    },
+    "autoload": {
+        "psr-4": {
+            "HemiFrame\\": "src/HemiFrame"
+        }
+    },
+    "require": {
+        "php": ">=7.0"
+    }
+}
