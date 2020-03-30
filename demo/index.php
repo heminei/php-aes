@@ -13,7 +13,7 @@ $encryptedString = $aes->encrypt();
 $aes->setData($encryptedString);
 $decryptedString = $aes->decrypt();
 
-echo "Available methods: " . implode(",", $aes->getAvailableMethods()) . "<br/><br/>" . PHP_EOL;
+echo "Available methods: " . implode(",", \HemiFrame\Lib\AES::getAvailableMethods()) . "<br/><br/>" . PHP_EOL;
 echo "IV string: " . $ivString . "<br/>" . PHP_EOL;
 echo "Encrypted string: " . $encryptedString . "<br/>" . PHP_EOL;
 echo "Decrypted string: " . $decryptedString . "<br/>" . PHP_EOL;

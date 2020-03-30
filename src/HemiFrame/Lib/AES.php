@@ -2,11 +2,12 @@
 
 namespace HemiFrame\Lib;
 
-class AES {
+class AES
+{
 
-    private $key = "";
+    private $key = null;
     private $data = null;
-    private $method = "";
+    private $method = "aes-256-cbc";
     private $iv = "1234567891234567";
 
     /**
@@ -15,23 +16,23 @@ class AES {
      * @param string $key
      * @param string $method
      */
-    function __construct($data = null, string $key = "", string $method = "AES-256-CBC") {
-        if (!empty($data)) {
+    function __construct($data = null, ?string $key = null, string $method = "aes-256-cbc")
+    {
+        if ($data !== null) {
             $this->setData($data);
         }
-        if (!empty($key)) {
+        if ($key !== null) {
             $this->setKey($key);
         }
-        if (!empty($method)) {
-            $this->setMethod($method);
-        }
+        $this->setMethod($method);
     }
 
     /**
      * Get encrypt/decrypt key
-     * @return string
+     * @return string|null
      */
-    public function getKey(): string {
+    public function getKey(): ?string
+    {
         return $this->key;
     }
 
@@ -39,7 +40,8 @@ class AES {
      * Return encoded or decoded string
      * @return mixed
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 
@@ -47,7 +49,8 @@ class AES {
      * Get selected cipher method
      * @return string
      */
-    public function getMethod(): string {
+    public function getMethod(): string
+    {
         return $this->method;
     }
 
@@ -55,7 +58,8 @@ class AES {
      * Get available cipher methods
      * @return array
      */
-    public function getAvailableMethods(bool $aliases = false): array {
+    public static function getAvailableMethods(bool $aliases = false): array
+    {
         return openssl_get_cipher_methods($aliases);
     }
 
@@ -63,7 +67,8 @@ class AES {
      * Gets selected iv string
      * @return string
      */
-    public function getIv(): string {
+    public function getIv(): string
+    {
         return $this->iv;
     }
 
@@ -71,7 +76,8 @@ class AES {
      * Generate a iv string for selected method
      * @return string|bool
      */
-    public function generateIv() {
+    public function generateIv()
+    {
         return openssl_random_pseudo_bytes(openssl_cipher_iv_length($this->method));
     }
 
@@ -79,7 +85,8 @@ class AES {
      * Gets the cipher iv length
      * @return int|bool
      */
-    public function getIvLength() {
+    public function getIvLength()
+    {
         return openssl_cipher_iv_length($this->method);
     }
 
@@ -89,7 +96,8 @@ class AES {
      * @return $this
      * @throws \InvalidArgumentException
      */
-    public function setKey(string $key): self {
+    public function setKey(string $key): self
+    {
         if (empty($key)) {
             throw new \InvalidArgumentException("Key is empty.");
         }
@@ -103,7 +111,10 @@ class AES {
      * @return $this
      * @throws \InvalidArgumentException
      */
-    public function setMethod(string $method): self {
+    public function setMethod(string $method): self
+    {
+        $method = strtolower($method);
+
         if (!in_array($method, $this->getAvailableMethods())) {
             throw new \InvalidArgumentException("The method is not available");
         }
@@ -117,7 +128,8 @@ class AES {
      * @return $this
      * @throws \InvalidArgumentException
      */
-    public function setIv(string $iv): self {
+    public function setIv(string $iv): self
+    {
         if (strlen($this->getIv()) != $this->getIvLength()) {
             throw new \InvalidArgumentException("Iv lenght must be " . $this->getIvLength());
         }
@@ -132,7 +144,8 @@ class AES {
      * @return $this
      * @throws \InvalidArgumentException
      */
-    public function setData($data): self {
+    public function setData($data): self
+    {
         if (empty($data)) {
             throw new \InvalidArgumentException("Data is empty.");
         }
@@ -145,7 +158,8 @@ class AES {
      * @return string|bool
      * @throws \InvalidArgumentException
      */
-    public function encrypt() {
+    public function encrypt()
+    {
         if (empty($this->getKey())) {
             throw new \InvalidArgumentException("Please set key.");
         }
@@ -160,7 +174,8 @@ class AES {
      * @return mixed
      * @throws \InvalidArgumentException
      */
-    public function decrypt() {
+    public function decrypt()
+    {
         if (empty($this->getKey())) {
             throw new \InvalidArgumentException("Please set key.");
         }
@@ -169,5 +184,4 @@ class AES {
         }
         return openssl_decrypt($this->data, $this->method, $this->key, 0, $this->getIv());
     }
-
 }

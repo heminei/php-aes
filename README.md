@@ -6,7 +6,7 @@
 - encode and decode data
 
 ## Requirements
-PHP >= 7.0
+PHP >= 7.1
 
 ## Installation
 
@@ -14,7 +14,7 @@ Enter in composer.json
 ```json
 {
     "require": {
-        "hemiframe/php-aes": "~1.1"
+        "hemiframe/php-aes": "~1.2"
     }
 }
 ```
@@ -38,101 +38,102 @@ $encryptedString = $aes->encrypt();
 $aes->setData($encryptedString);
 $decryptedString = $aes->decrypt();
 
-echo "Available methods: " . implode(",", $aes->getAvailableMethods()) . "<br/><br/>" . PHP_EOL;
+echo "Available methods: " . implode(",", \HemiFrame\Lib\AES::getAvailableMethods()) . "<br/><br/>" . PHP_EOL;
 echo "IV string: " . $ivString . "<br/>" . PHP_EOL;
 echo "Encrypted string: " . $encryptedString . "<br/>" . PHP_EOL;
 echo "Decrypted string: " . $decryptedString . "<br/>" . PHP_EOL;
 ```
 
-
 ## Documentation
 
 ### Methods
-    /**
-     * Get encrypt/decrypt key
-     * @return string
-     */
-    public function getKey(): string
 
-    /**
-     * Return encoded or decoded string
-     * @return mixed
-     */
-    public function getData();
+```php
+/**
+ * Get encrypt/decrypt key
+ * @return string|null
+ */
+public function getKey(): string
 
-    /**
-     * Get selected cipher method
-     * @return string
-     */
-    public function getMethod(): string
+/**
+ * Return encoded or decoded string
+ * @return mixed
+ */
+public function getData();
 
-    /**
-     * Get available cipher methods
-     * @return array
-     */
-    public function getAvailableMethods(bool $aliases = false): array
+/**
+ * Get selected cipher method
+ * @return string
+ */
+public function getMethod(): string
 
-    /**
-     * Gets selected iv string
-     * @return string
-     */
-    public function getIv(): string
+/**
+ * Get available cipher methods
+ * @return array
+ */
+public function getAvailableMethods(bool $aliases = false): array
 
-    /**
-     * Generate a iv string for selected method
-     * @return string|bool
-     */
-    public function generateIv();
+/**
+ * Gets selected iv string
+ * @return string
+ */
+public function getIv(): string
 
-    /**
-     * Gets the cipher iv length
-     * @return int|bool
-     */
-    public function getIvLength();
+/**
+ * Generate a iv string for selected method
+ * @return string|bool
+ */
+public function generateIv();
 
-    /**
-     * Set encrypt/decrypt key
-     * @param string $key
-     * @return $this
-     * @throws \InvalidArgumentException
-     */
-    public function setKey(string $key): self
+/**
+ * Gets the cipher iv length
+ * @return int|bool
+ */
+public function getIvLength();
 
-    /**
-     * Set encrypt/decrypt method
-     * @param string $method
-     * @return $this
-     * @throws \InvalidArgumentException
-     */
-    public function setMethod(string $method);
+/**
+ * Set encrypt/decrypt key
+ * @param string $key
+ * @return $this
+ * @throws \InvalidArgumentException
+ */
+public function setKey(string $key): self
 
-    /**
-     * Set iv string
-     * @param string $iv
-     * @return $this
-     * @throws \InvalidArgumentException
-     */
-    public function setIv(string $iv): self
+/**
+ * Set encrypt/decrypt method
+ * @param string $method
+ * @return $this
+ * @throws \InvalidArgumentException
+ */
+public function setMethod(string $method);
 
-    /**
-     * Set encrypt/decrypt data
-     * @param mixed $data
-     * @return $this
-     * @throws \InvalidArgumentException
-     */
-    public function setData($data): self
+/**
+ * Set iv string
+ * @param string $iv
+ * @return $this
+ * @throws \InvalidArgumentException
+ */
+public function setIv(string $iv): self
 
-    /**
-     * Returns the encrypted string on success or FALSE on failure.
-     * @return string|bool
-     * @throws \InvalidArgumentException
-     */
-    public function encrypt();
+/**
+ * Set encrypt/decrypt data
+ * @param mixed $data
+ * @return $this
+ * @throws \InvalidArgumentException
+ */
+public function setData($data): self
 
-    /**
-     * The decrypted string on success or FALSE on failure.
-     * @return mixed
-     * @throws \InvalidArgumentException
-     */
-    public function decrypt();
+/**
+ * Returns the encrypted string on success or FALSE on failure.
+ * @return string|bool
+ * @throws \InvalidArgumentException
+ */
+public function encrypt();
+
+/**
+ * The decrypted string on success or FALSE on failure.
+ * @return mixed
+ * @throws \InvalidArgumentException
+ */
+public function decrypt();
 ```
